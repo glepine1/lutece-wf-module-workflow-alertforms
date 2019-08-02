@@ -37,7 +37,10 @@ import fr.paris.lutece.plugins.forms.business.FormResponse;
 import fr.paris.lutece.plugins.workflow.modules.alertforms.business.retrieval.IRetrievalType;
 import fr.paris.lutece.plugins.workflow.modules.alertforms.business.retrieval.RetrievalTypeFactory;
 import fr.paris.lutece.plugins.workflow.modules.alertforms.util.annotation.AlertConfig;
+import fr.paris.lutece.plugins.workflowcore.business.config.ITaskConfig;
 import fr.paris.lutece.plugins.workflowcore.business.config.TaskConfig;
+
+import java.util.Map;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -185,4 +188,14 @@ public class TaskAlertConfig extends TaskConfig
 
         return null;
     }
+    
+    @Override
+	public ITaskConfig copyConfigWithNewStates( Map<Integer, Integer> mapNewStates )
+    {
+		if ( mapNewStates != null )
+		{
+			_nIdStateAfterDeadline = mapNewStates.getOrDefault( _nIdStateAfterDeadline, _nIdStateAfterDeadline );
+		}
+		return this;
+	}
 }
